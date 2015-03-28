@@ -1,0 +1,28 @@
+{
+  "name": "coordinates",
+  "version": "0.0.1",
+  "description": "Toolkit for working with GIS coordinates",
+  "main": "index.js",
+  "dependencies": {
+    "proj4": "~2.3.3"
+  },
+  "devDependencies": {
+    "tape": "latest"
+  },
+  "scripts": {
+    "test": "node test/*|faucet"
+  },
+  "author": "Hans Skjerpen",
+  "license": "MIT",
+  "directories": {
+    "test": "test"
+  },
+  "repository": {
+    "type": "git",
+    "url": "./"
+  },
+  "keywords": [
+    "GIS",
+    "coordinates"
+  ]
+}
