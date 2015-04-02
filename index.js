@@ -41,44 +41,39 @@ var longitude = east_west.source + degrees.source + decimal.source + fraction_of
 var DD = new RegExp(latitude + separator.source + longitude);
 var number = new RegExp(/[1-9]+(\d)*(\.)*(\d)*/);
 
-var coordinates = {
-    DD: function (string) {
-        var x = DD.exec(string);
-        return (x && x[0])
-            ? {coords: x[0], format: 'DDD'}
-            : null;
-    },
+function extract (string) {
+    // try to match all different formats
+    return coordinates.DDM(string)
+        || coordinates.DMS(string)
+        || coordinates.UTM(string)
+        || coordinates.MGRS(string)
+        || coordinates.DD(string);  // Add other formats when needed
+}
 
-    DDM: function (string) { return null; },  // DDM (degree minutes)
-    DMS: function (string) { return null; },  // DMS (degree minute seconds)
-    UTM: function (string) { return null; },  // UTM (Universal Transverse Mercator)
-    MGRS: function (string) { return null; }, // (MGRS) Military Grid Reference System
-    //, Other formats in here.
+function pair (str) {
+    // input string with coordinates
+    // output object with lat and lon
+    var pair = str && str.coords && str.coords.split(coordinates.patterns.separator);
+    lat = pair && number.exec(pair[0]) || undefined;
+    lon = pair && number.exec(pair[1]) || undefined;
 
-    extract: function (string) {
-        // try to match all different formats
-        return coordinates.DDM(string)
-            || coordinates.DMS(string)
-            || coordinates.UTM(string)
-            || coordinates.MGRS(string)
-            || coordinates.DD(string);  // Add other formats when needed
-    },
+    return (lat && lon)
+        ? { lat: lat && Number(lat[0]), lon: lon && Number(lon[0]), format: str.format }
+        : undefined;
+}
 
-    pair: function (str) {
-        // input string with coordinates
-        // output object with lat and lon
-        var pair = str && str.coords && str.coords.split(coordinates.patterns.separator);
-        lat = pair && number.exec(pair[0]) || undefined;
-        lon = pair && number.exec(pair[1]) || undefined;
+function coordinates(str) { return pair(extract(str)); }
 
-        return (lat && lon)
-            ? { lat: lat && Number(lat[0]), lon: lon && Number(lon[0]), format: str.format }
-            : undefined;
-    },
-
-    patterns: {
-        separator: separator
-    }
+coordinates.DD = function (string) {
+  var x = DD.exec(string);
+  return (x && x[0]) ? {coords: x[0], format: 'DDD'} : null;
 };
+coordinates.DDM = function (string) { return null; };  // DDM (degree minutes)
+coordinates.DMS = function (string) { return null; };  // DMS (degree minute seconds)
+coordinates.UTM = function (string) { return null; };  // UTM (Universal Transverse Mercator)
+coordinates.MGRS = function (string) { return null; }; // (MGRS) Military Grid Reference System
+coordinates.extract = extract;
+coordinates.pair = pair;
+coordinates.patterns = { separator: separator };
 
 module.exports = coordinates;
