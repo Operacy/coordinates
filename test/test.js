@@ -50,13 +50,15 @@ var strings = {
 
 test('Testing extraction of coordinates from a bunch of different strings', function(t) {
 
-    t.plan(Object.keys(strings).length*2)
+    t.plan(Object.keys(strings).length*3);
 
     Object.keys(strings).forEach(function(str){
         var extract = coords.extract(str);
-        t.deepEqual(extract, strings[str].extract, 'Extracting coords from '+str)
+        t.deepEqual(extract, strings[str].extract, 'Extracting coords from '+str);
 
         var pair = coords.pair(extract);
         t.deepEqual(pair, strings[str].pair, 'Extracting coord pair from '+JSON.stringify(extract));
-    })
+
+        t.deepEqual(coords(str), strings[str].pair, 'Extracting coord pair from '+str);
+    });
 });
