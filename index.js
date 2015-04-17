@@ -31,15 +31,15 @@ var degrees = /-?(\d{2,3})+/;
 var decimal = /(\.)*/;
 var fraction_of_degree = /(\d)*/;
 var degree_mark = /[\u00B0]*/;
-var north_south = /[+|\-|N|n|S|s]*/;
-var east_west = /[+|\-|E|e|W|w]*/;
+var north_south = /[N|n|S|s]*/;
+var east_west = /[E|e|W|w]*/;
 var separator = /[\s|\/|\\|\||,]+/;
 
 var latitude = north_south.source + degrees.source + decimal.source + fraction_of_degree.source + degree_mark.source + north_south.source;
 var longitude = east_west.source + degrees.source + decimal.source + fraction_of_degree.source + degree_mark.source + east_west.source;
 
 var DD = new RegExp(latitude + separator.source + longitude);
-var number = new RegExp(/[1-9]+(\d)*(\.)*(\d)*/);
+var number = new RegExp(/-?[1-9]+(\d)*(\.)*(\d)*/);
 
 function extract (string) {
     // try to match all different formats

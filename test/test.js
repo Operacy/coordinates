@@ -26,12 +26,12 @@ var strings = {
         'pair': { lat: 27.0067, lon: 87, format: 'DDD' }
     },
     '+27.00 087W': {
-        'extract': { coords: '+27.00 087W', format: 'DDD' },
+        'extract': { coords: '27.00 087W', format: 'DDD' },
         'pair': { lat: 27, lon: 87, format: 'DDD' }
     },
     '27N -87': {
         'extract': { coords: '27N -87', format: 'DDD' },
-        'pair': { lat: 27, lon: 87, format: 'DDD' }
+        'pair': { lat: 27, lon: -87, format: 'DDD' }
     },
     'N27.00 W087': {
         'extract': { coords: 'N27.00 W087', format: 'DDD' },
