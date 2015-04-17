@@ -27,7 +27,7 @@ var coords  = require('coordinates'),
 
     [+|-]*[N|n|S|s]*(\d{2,3})+(\.)*(\d)*[\u00B0]*[N|n|S|s]*([\s/])*[+|-]*[W|w|E|e]*(\d{2,3})*((\.)*(\d{2}))*[\u00B0]*[W|w|E|e]*
 */
-var degrees = /(\d{2,3})+/;
+var degrees = /-?(\d{2,3})+/;
 var decimal = /(\.)*/;
 var fraction_of_degree = /(\d)*/;
 var degree_mark = /[\u00B0]*/;
