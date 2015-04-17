@@ -39,7 +39,7 @@ var latitude = north_south.source + degrees.source + decimal.source + fraction_o
 var longitude = east_west.source + degrees.source + decimal.source + fraction_of_degree.source + degree_mark.source + east_west.source;
 
 var DD = new RegExp(latitude + separator.source + longitude);
-var number = new RegExp(/-?[1-9]+(\d)*(\.)*(\d)*/);
+var number = new RegExp(/-?[0-9]+(\d)*(\.)*(\d)*/);
 
 function extract (string) {
     // try to match all different formats
@@ -54,6 +54,12 @@ function pair (str) {
     // input string with coordinates
     // output object with lat and lon
     var pair = str && str.coords && str.coords.split(coordinates.patterns.separator);
+
+    // Handle South (S) and West (W) by making negative degrees.
+    var remove = new RegExp(/[N|n|S|s|E|e|W|w]/);
+    if (pair && pair[0] && (pair[0].indexOf('S')>=0 || pair[0].indexOf('s')>=0)) pair[0] = '-'+pair[0].replace(remove, '');
+    if (pair && pair[1] && (pair[1].indexOf('W')>=0 || pair[1].indexOf('w')>=0)) pair[1] = '-'+pair[1].replace(remove, '');
+    
     lat = pair && number.exec(pair[0]) || undefined;
     lon = pair && number.exec(pair[1]) || undefined;
 

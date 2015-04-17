@@ -7,27 +7,27 @@ var test = require('tape'),
 var strings = {
     'noise before 27.00N 87W and noise after': {
         'extract': { coords: '27.00N 87W', format: 'DDD' },
-        'pair': { lat: 27, lon: 87, format: 'DDD' }
+        'pair': { lat: 27, lon: -87, format: 'DDD' }
     },
     '27.00N/87W': {
         'extract': { coords: '27.00N/87W', format: 'DDD' },
-        'pair': { lat: 27, lon: 87, format: 'DDD' }
+        'pair': { lat: 27, lon: -87, format: 'DDD' }
     },
-    '27.00N 087.00W': {
-        'extract': { coords: '27.00N 087.00W', format: 'DDD' },
-        'pair': { lat: 27, lon: 87, format: 'DDD' }
+    '27.00S 087.00W': {
+        'extract': { coords: '27.00S 087.00W', format: 'DDD' },
+        'pair': { lat: -27, lon: -87, format: 'DDD' }
     },
     '27.0123n 087.002w': {
         'extract': { coords: '27.0123n 087.002w', format: 'DDD' },
-        'pair': { lat: 27.0123, lon: 87.002, format: 'DDD' }
+        'pair': { lat: 27.0123, lon: -87.002, format: 'DDD' }
     },
-    '27.0067N 087W': {
-        'extract': { coords: '27.0067N 087W', format: 'DDD' },
+    '27.0067N 087E': {
+        'extract': { coords: '27.0067N 087E', format: 'DDD' },
         'pair': { lat: 27.0067, lon: 87, format: 'DDD' }
     },
     '+27.00 087W': {
         'extract': { coords: '27.00 087W', format: 'DDD' },
-        'pair': { lat: 27, lon: 87, format: 'DDD' }
+        'pair': { lat: 27, lon: -87, format: 'DDD' }
     },
     '27N -87': {
         'extract': { coords: '27N -87', format: 'DDD' },
@@ -35,16 +35,20 @@ var strings = {
     },
     'N27.00 W087': {
         'extract': { coords: 'N27.00 W087', format: 'DDD' },
-        'pair': { lat: 27, lon: 87, format: 'DDD' }
+        'pair': { lat: 27, lon: -87, format: 'DDD' }
     },
     '27.05N/87.123W': {
         'extract': { coords: '27.05N/87.123W', format: 'DDD' },
-        'pair': { lat: 27.05, lon: 87.123, format: 'DDD' }
+        'pair': { lat: 27.05, lon: -87.123, format: 'DDD' }
     },
     '27.00°N 087.00°W': {
         'extract': { coords: '27.00°N 087.00°W', format: 'DDD' },
-        'pair': { lat: 27, lon: 87, format: 'DDD' }
-    }
+        'pair': { lat: 27, lon: -87, format: 'DDD' }
+    },
+    'S27.05/87.123W': {
+        'extract': { coords: 'S27.05/87.123W', format: 'DDD' },
+        'pair': { lat: -27.05, lon: -87.123, format: 'DDD' }
+    },
 };
 
 
