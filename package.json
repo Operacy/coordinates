@@ -1,6 +1,6 @@
 {
   "name": "coordinates",
-  "version": "0.0.4",
+  "version": "1.0.0",
   "description": "Toolkit for working with GIS coordinates",
   "main": "index.js",
   "dependencies": {
