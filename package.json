@@ -4,13 +4,18 @@
   "description": "Toolkit for working with GIS coordinates",
   "main": "index.js",
   "dependencies": {
-    "proj4": "~2.3.3"
+    "minimist": "^1.2.0",
+    "proj4": "~2.3.3",
+    "split2": "^1.1.1"
   },
   "devDependencies": {
     "tape": "latest"
   },
   "scripts": {
     "test": "node test/*|faucet"
+  },
+  "bin": {
+    "coordinates": "./cli.js"
   },
   "author": "Hans Skjerpen",
   "license": "MIT",
