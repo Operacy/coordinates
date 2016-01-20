@@ -71,8 +71,35 @@ function pair (str) {
 
 };
 
+function normalize (dd_struct) {
+  var d = dd_struct.split(';'),
+  lat_prefix = '',
+  lon_prefix = ''
+
+  // Characters we wish to remove from misc notations
+  var remove = new RegExp(/[N|n|S|s|E|e|W|w|+|\u00B0|\u02DA|\u00BA|\u005E|\u007E|\u002A|\u2032|\u0027]/g)
+
+  // Handle Souths and Wests. They make negative degrees.
+  if (d[0].indexOf('S')>=0 || d[0].indexOf('s')>=0) lat_prefix = '-'  // Replace S and s with -
+  if (d[1].indexOf('W')>=0 || d[1].indexOf('w')>=0) lon_prefix = '-'  // Replace W and w with -
+
+  // Remove all direction indicators.
+  d[0] = d[0].replace(remove,'')
+  d[1] = d[1].replace(remove,'')
+
+  // Remove leading zeroes
+  if(d[0][0] == '0') d[0] = d[0].slice(1)
+  if(d[1][0] == '0') d[1] = d[1].slice(1)
+
+  // Add prefixes
+  d[0] = lat_prefix + d[0]
+  d[1] = lon_prefix + d[1]
+
+  return d.join(';')              // Return the normalized string (without the type)
+}
+
 var coordinates = function (str) {
-  return pair(extract(str))
+  return normalize(pair(extract(str)))
 }
 
 // DD (decimal degrees)
@@ -108,34 +135,8 @@ coordinates.UTM = function (string) { return null }  // UTM (Universal Transvers
 coordinates.MGRS = function (string) { return null } // (MGRS) Military Grid Reference System
 coordinates.extract = extract
 coordinates.pair = pair
+coordinates.normalize = normalize
 coordinates.detect = detect
 coordinates.ddm2dd = ddm2dd
-
-coordinates.normalize = function (dd_struct) {
-  var d = dd_struct.split(';'),
-  lat_prefix = '',
-  lon_prefix = ''
-
-  // Characters we wish to remove from misc notations
-  var remove = new RegExp(/[N|n|S|s|E|e|W|w|+|\u00B0|\u02DA|\u00BA|\u005E|\u007E|\u002A|\u2032|\u0027]/g)
-
-  // Handle Souths and Wests. They make negative degrees.
-  if (d[0].indexOf('S')>=0 || d[0].indexOf('s')>=0) lat_prefix = '-'  // Replace S and s with -
-  if (d[1].indexOf('W')>=0 || d[1].indexOf('w')>=0) lon_prefix = '-'  // Replace W and w with -
-
-  // Remove all direction indicators.
-  d[0] = d[0].replace(remove,'')
-  d[1] = d[1].replace(remove,'')
-
-  // Remove leading zeroes
-  if(d[0][0] == '0') d[0] = d[0].slice(1)
-  if(d[1][0] == '0') d[1] = d[1].slice(1)
-
-  // Add prefixes
-  d[0] = lat_prefix + d[0]
-  d[1] = lon_prefix + d[1]
-
-  return d.join(';')              // Return the normalized string (without the type)
-}
 
 module.exports = coordinates
