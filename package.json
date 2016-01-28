@@ -6,7 +6,7 @@
   "dependencies": {
     "minimist": "^1.2.0",
     "proj4": "~2.3.3",
-    "split2": "^1.0.0",
+    "split2": "^1.1.1",
     "through2-map": "^2.0.0"
   },
   "devDependencies": {
@@ -14,6 +14,9 @@
   },
   "scripts": {
     "test": "node test/*|faucet"
+  },
+  "bin": {
+    "coordinates": "./cli.js"
   },
   "author": "Hans Skjerpen",
   "license": "MIT",
