@@ -4,7 +4,10 @@
   "description": "Toolkit for working with GIS coordinates",
   "main": "index.js",
   "dependencies": {
-    "proj4": "~2.3.3"
+    "minimist": "^1.2.0",
+    "proj4": "~2.3.3",
+    "split2": "^1.0.0",
+    "through2-map": "^2.0.0"
   },
   "devDependencies": {
     "tape": "latest"

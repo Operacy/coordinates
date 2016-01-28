@@ -56,11 +56,11 @@ function pair (str) {
 
   switch (_coords[1]) {
     case 'DD':
-    latitude = new RegExp(/([N|n|S|s|+|\-]*(\d{2,3})(\.(\d)+)?[\u00B0|\u02DA|\u00BA|\u005E|\u007E|\u002A]*[N|n|S|s|+|\-]*[\s|\/|\\|\|,])/)
+    latitude = new RegExp(/([N|n|S|s|+|\-]*(\d{1,3})(\.(\d)+)?[\u00B0|\u02DA|\u00BA|\u005E|\u007E|\u002A]*[N|n|S|s|+|\-]*[\s|\/|\\|\|,])/)
     separator = new RegExp(/[\s|\/|\\|\|,]$/)
     break
     case 'DDM':
-    latitude = new RegExp(/([N|n|S|s|+|\-]*(\d{2,3})[\u00B0|\u02DA|\u00BA|\u005E|\u007E|\u002A]*(\s)(\d{1,2})*(\.(\d)+)*[\u2032|\u0027]*[N|n|S|s|+|\-]*[\s|\/])/)
+    latitude = new RegExp(/([N|n|S|s|+|\-]*(\d{1,3})[\u00B0|\u02DA|\u00BA|\u005E|\u007E|\u002A]*(\s)(\d{1,2})*(\.(\d)+)*[\u2032|\u0027]*[N|n|S|s|+|\-]*[\s|\/])/)
     separator = new RegExp(/[\s|\/]$/)
     break
   } // switch
@@ -77,28 +77,28 @@ var coordinates = function (str) {
 
 // DD (decimal degrees)
 coordinates.DD = function (string) {
-  var DD = new RegExp(/([N|n|S|s|+|\-]*(\d{2,3})(\.(\d)+)?[\u00B0|\u02DA|\u00BA|\u005E|\u007E|\u002A]*[N|n|S|s|+|\-]*[\s|\/|\\|\|,]+)[E|e|W|w|+|\-]*(\d{2,3})(\.(\d)+)?[\u00B0|\u02DA|\u00BA|\u005E|\u007E|\u002A]*[E|e|W|w|+|\-]*/);
+  var DD = new RegExp(/([N|n|S|s|+|\-]*(\d{1,3})(\.(\d)+)?[\u00B0|\u02DA|\u00BA|\u005E|\u007E|\u002A]*[N|n|S|s|+|\-]*[\s|\/|\\|\|,]+)[E|e|W|w|+|\-]*(\d{1,3})(\.(\d)+)?[\u00B0|\u02DA|\u00BA|\u005E|\u007E|\u002A]*[E|e|W|w|+|\-]*/);
   var x = DD.exec(string)
   return (x && x[0]) ? x[0]+';DD' : null
 }
 
 coordinates.DD.pair = function (dd_string) {
   var d = dd_string.split(';')
-  var dd_latitude = new RegExp(/([N|n|S|s|+|\-]*(\d{2,3})(\.(\d)+)?[\u00B0|\u02DA|\u00BA|\u005E|\u007E|\u002A]*[N|n|S|s|+|\-]*[\s|\/|\\|\|,]+)/)
+  var dd_latitude = new RegExp(/([N|n|S|s|+|\-]*(\d{1,3})(\.(\d)+)?[\u00B0|\u02DA|\u00BA|\u005E|\u007E|\u002A]*[N|n|S|s|+|\-]*[\s|\/|\\|\|,]+)/)
   var lat = dd_latitude.exec(d[0])
   return lat[0].substr(0, lat[0].length-1) + ';' + d[0].substr(lat[0].length) + ';' + d[1] // Todo: trim away all seperators from lat (may be multiple)
 };
 
 // DDM (degree minutes)
 coordinates.DDM = function (string) {
-  var DDM = new RegExp(/([N|n|S|s|+|\-]*(\d{2,3})[\u00B0|\u02DA|\u00BA|\u005E|\u007E|\u002A]*(\s)(\d{1,2})*(\.(\d)+)*[\u2032|\u0027]*[N|n|S|s|+|\-]*[\s|\/]+)[E|e|W|w|+|\-]*(\d{2,3})[\u00B0|\u02DA|\u00BA|\u005E|\u007E|\u002A]*(\s)(\d{1,2})*(\.(\d)+)*[\u2032|\u0027]*[E|e|W|w|+|\-]*/);
+  var DDM = new RegExp(/([N|n|S|s|+|\-]*(\d{1,3})[\u00B0|\u02DA|\u00BA|\u005E|\u007E|\u002A]*(\s)(\d{1,2})*(\.(\d)+)*[\u2032|\u0027]*[N|n|S|s|+|\-]*[\s|\/]+)[E|e|W|w|+|\-]*(\d{1,3})[\u00B0|\u02DA|\u00BA|\u005E|\u007E|\u002A]*(\s)(\d{1,2})*(\.(\d)+)*[\u2032|\u0027]*[E|e|W|w|+|\-]*/);
   var x = DDM.exec(string);
   return (x && x[0]) ? x[0]+';DDM' : null;
 };
 
 coordinates.DDM.pair = function (ddm_string) {
   var d = ddm_string.split(';');
-  var ddm_latitude = new RegExp(/([N|n|S|s|+|\-]*(\d{2,3})[\u00B0|\u02DA|\u00BA|\u005E|\u007E|\u002A]*(\s)(\d{1,2})*(\.(\d)+)*[\u2032|\u0027]*[N|n|S|s|+|\-]*[\s|\/]+)/);
+  var ddm_latitude = new RegExp(/([N|n|S|s|+|\-]*(\d{1,3})[\u00B0|\u02DA|\u00BA|\u005E|\u007E|\u002A]*(\s)(\d{1,2})*(\.(\d)+)*[\u2032|\u0027]*[N|n|S|s|+|\-]*[\s|\/]+)/);
   var lat = ddm_latitude.exec(d[0]);
   return lat[0].substr(0, lat[0].length-1) + ';' + d[0].substr(lat[0].length) + ';' + d[1]; // Todo: trim away all seperators from lat (may be multiple)
 };

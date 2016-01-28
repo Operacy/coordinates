@@ -4,7 +4,9 @@ var test = require('tape'),
     pair    = coords.pair;
 
 var strings = {
-
+    /***
+     DD-testing
+    ***/
     'noise before 27.00N 87W and noise after': {
         'extract':'27.00N 87W;DD',
         'pair':'27.00N;87W;DD',
@@ -64,6 +66,16 @@ var strings = {
         'extract': 'S27.05/87.123W;DD',
         'pair': 'S27.05;87.123W;DD',
         'normalize': '-27.05;-87.123'
+    },
+    "63 7": {
+      'extract': "63 7;DD",
+      'pair': "63;7;DD",
+      'normalize': '63;7'
+    },
+    "7 30": {
+      'extract': "7 30;DD",
+      'pair': "7;30;DD",
+      'normalize': "7;30"
     },
 
     /***
