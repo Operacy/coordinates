@@ -88,8 +88,8 @@ function normalize (dd_struct) {
   d[1] = d[1].replace(remove,'')
 
   // Remove leading zeroes
-  if(d[0][0] == '0') d[0] = d[0].slice(1)
-  if(d[1][0] == '0') d[1] = d[1].slice(1)
+  if(d[0].length > 1 && d[0][0] == '0') d[0] = d[0].slice(1)
+  if(d[1].length > 1 && d[1][0] == '0') d[1] = d[1].slice(1)
 
   // Add prefixes
   d[0] = lat_prefix + d[0]

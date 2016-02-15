@@ -77,6 +77,11 @@ var strings = {
       'pair': "7;30;DD",
       'normalize': "7;30"
     },
+    "7 0": {
+      'extract': "7 0;DD",
+      'pair': "7;0;DD",
+      'normalize': "7;0"
+    },
 
     /***
         DDM testing
@@ -123,20 +128,14 @@ var strings = {
 
 test('Testing extraction of coordinates from a bunch of different strings', function(t) {
 
-    t.plan(Object.keys(strings).length);
+    t.plan(Object.keys(strings).length * 3);
 
     Object.keys(strings).forEach(function(str){
         var extract = coords.extract(str)
         t.deepEqual(extract, strings[str].extract, 'Extracting coords from '+str)
-/*
         var pair = coords.pair(extract);
         t.deepEqual(pair, strings[str].pair, 'Extracting coord pair from '+JSON.stringify(extract))
-
         var normalize = coords.normalize(pair.split(';').slice(0,2).join(';'))
         t.deepEqual(normalize, strings[str].normalize, "Normalizing pair from "+pair)
-
-        t.deepEqual(coords(str), strings[str].pair, 'Extracting coord pair from '+str)
-*/
-
     });
 });
